@@ -1,0 +1,22 @@
+{
+  "name": "travelapp",
+  "version": "1.0.0",
+  "description": "TravelConnect-Backend: The Express.js backend for TravelConnect, the social travel companion app. Powers destination details, attraction recommendations, user reviews, and more. Join us in shaping the future of travel exploration!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Konu9712/TravelApp.git"
+  },
+  "author": "Konark Dave",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Konu9712/TravelApp/issues"
+  },
+  "homepage": "https://github.com/Konu9712/TravelApp#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
