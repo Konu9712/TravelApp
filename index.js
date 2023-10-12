@@ -1,6 +1,12 @@
 const express = require("express");
 const app = express();
-const port = 3000; // You can use any available port you prefer
+const db = require("./database/conn");
+const routes = require("./routes");
+const port = 3000;
+
+//MiddelWare
+app.use(express.json());
+routes(app);
 
 // Define a simple route
 app.get("/", (req, res) => {
