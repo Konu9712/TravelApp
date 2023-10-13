@@ -9,7 +9,7 @@ router.get("/test", (req, res) => {
   res.send("Hello, World! This is your Express server.");
 });
 
-router.get("/signup", async (req, res) => {
+router.post("/signup", async (req, res) => {
   let { email, password } = req.body;
 
   try {
@@ -32,7 +32,7 @@ router.get("/signup", async (req, res) => {
 });
 
 // Login route
-router.get("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
