@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const db = require("./database/conn");
 const routes = require("./routes");
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 //MiddelWare
 app.use(express.json());
