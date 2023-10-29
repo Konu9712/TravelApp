@@ -2,7 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const User = require("../database/sechma/authSechma");
+const User = require("../../database/sechma/authSechma");
 const router = express.Router();
 
 router.get("/test", (req, res) => {
