@@ -43,4 +43,31 @@ router.post("/insert/nearyou", async (req, res) => {
   }
 });
 
+// Trending location
+router.post("/trending", async (req, res) => {
+  try {
+    const locations = await Location.find(
+      {},
+      { name: 1, province: 1, img: 1, rating: 1 }
+    )
+      .sort({ rating: -1 })
+      .limit(10);
+
+    const modifiedLocations = locations.map((location) => {
+      const randomImageIndex = Math.floor(Math.random() * location.img.length);
+      return {
+        name: location.name,
+        province: location.province,
+        img: location.img[randomImageIndex],
+        rating: location.rating,
+      };
+    });
+
+    res.send(modifiedLocations);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error in getting trending location" });
+  }
+});
+
 module.exports = router;
