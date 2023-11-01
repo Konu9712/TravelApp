@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const Location = require("../../database/sechma/locationSechma");
 const helper = require("../../helper/validaion");
 const activitySechma = require("../../database/sechma/activitySechma");
+const locationSechma = require("../../database/sechma/locationSechma");
 
 const router = express.Router();
 
@@ -100,6 +101,31 @@ router.post("/insert/activities", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error in inserting new location" });
+  }
+});
+
+// Trending location
+router.post("/activities", async (req, res) => {
+  try {
+    const locations = await activitySechma.aggregate([
+      { $project: { name: 1, province: 1, img: 1, rating: 1 } },
+      { $sample: { size: 10 } },
+    ]);
+
+    const modifiedLocations = locations.map((location) => {
+      const randomImageIndex = Math.floor(Math.random() * location.img.length);
+      return {
+        name: location.name,
+        province: location.province,
+        img: location.img[randomImageIndex],
+        rating: location.rating,
+      };
+    });
+
+    res.send(modifiedLocations);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error in getting activities" });
   }
 });
 
