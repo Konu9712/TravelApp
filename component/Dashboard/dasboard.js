@@ -2,6 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const Location = require("../../database/sechma/locationSechma");
 const helper = require("../../helper/validaion");
+const activitySechma = require("../../database/sechma/activitySechma");
 
 const router = express.Router();
 
@@ -67,6 +68,38 @@ router.post("/trending", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error in getting trending location" });
+  }
+});
+
+//Insert Activites
+router.post("/insert/activities", async (req, res) => {
+  try {
+    const { name, desc, lat, long, province, img, rating, review } = req.body;
+    if (
+      helper.isEmpty(name) ||
+      helper.isEmpty(lat) ||
+      helper.isEmpty(long) ||
+      helper.isEmpty(province) ||
+      helper.isEmpty(img) ||
+      helper.isEmpty(rating)
+    ) {
+      res.status(400).json({ message: "Please fill all the fields" });
+    } else {
+      const newActivity = new activitySechma({
+        name,
+        desc,
+        lat,
+        long,
+        province,
+        img,
+        rating,
+      });
+      await newActivity.save();
+      res.status(201).json({ message: "Activiy Added successfully" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error in inserting new location" });
   }
 });
 
