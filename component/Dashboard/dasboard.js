@@ -4,6 +4,7 @@ const Location = require("../../database/sechma/locationSechma");
 const helper = require("../../helper/validaion");
 const activitySechma = require("../../database/sechma/activitySechma");
 const locationSechma = require("../../database/sechma/locationSechma");
+const resturantSechma = require("../../database/sechma/resturanSechma");
 
 const router = express.Router();
 
@@ -126,6 +127,44 @@ router.post("/activities", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error in getting activities" });
+  }
+});
+
+//Insert Resturants
+router.post("/insert/resturant", async (req, res) => {
+  try {
+    console.log(req.body);
+    const { name, desc, city, lat, long, province, img, rating, review } =
+      req.body;
+    if (
+      helper.isEmpty(name) ||
+      helper.isEmpty(lat) ||
+      helper.isEmpty(long) ||
+      helper.isEmpty(city) ||
+      helper.isEmpty(province) ||
+      helper.isEmpty(img) ||
+      helper.isEmpty(rating) ||
+      helper.isEmpty(review)
+    ) {
+      res.status(400).json({ message: "Please fill all the fields" });
+    } else {
+      const newResturant = new resturantSechma({
+        name,
+        desc,
+        city,
+        lat,
+        long,
+        province,
+        img,
+        rating,
+        review,
+      });
+      await newResturant.save();
+      res.status(201).json({ message: "Resturant Added successfully" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error in inserting new resturant" });
   }
 });
 
