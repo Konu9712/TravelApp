@@ -51,7 +51,7 @@ router.post("/trending", async (req, res) => {
   try {
     const locations = await Location.find(
       {},
-      { name: 1, province: 1, img: 1, rating: 1 }
+      { _id: 1, name: 1, province: 1, img: 1, rating: 1 }
     )
       .sort({ rating: -1 })
       .limit(10);
@@ -59,6 +59,7 @@ router.post("/trending", async (req, res) => {
     const modifiedLocations = locations.map((location) => {
       const randomImageIndex = Math.floor(Math.random() * location.img.length);
       return {
+        _id: location._id,
         name: location.name,
         province: location.province,
         img: location.img[randomImageIndex],
