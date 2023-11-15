@@ -169,4 +169,31 @@ router.post("/insert/resturant", async (req, res) => {
   }
 });
 
+// Fetch all resturants
+router.post("/restaurants", async (req, res) => {
+  try {
+    const restaurants = await resturantSechma.aggregate([
+      { $project: { name: 1, city: 1, img: 1, rating: 1 } },
+      { $sample: { size: 10 } },
+    ]);
+
+    const modifiedRestaurants = restaurants.map((restaurant) => {
+      const randomImageIndex = Math.floor(
+        Math.random() * restaurant.img.length
+      );
+      return {
+        name: restaurant.name,
+        city: restaurant.city,
+        img: restaurant.img[randomImageIndex],
+        rating: restaurant.rating,
+      };
+    });
+
+    res.send(modifiedRestaurants);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error in getting restaurants" });
+  }
+});
+
 module.exports = router;
