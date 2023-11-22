@@ -50,7 +50,6 @@ router.post("/gettrips", async (req, res) => {
     const { token } = req.body;
     // Find the user by token
     var decoded = jwt.verify(token, "travelapp");
-    console.log(decoded.userId);
     const user = await User.findById(decoded.userId);
 
     if (!user) {
@@ -75,8 +74,6 @@ router.post("/updatetrip", async (req, res) => {
     }
     // Find the user by token
     var decoded = jwt.verify(token, "travelapp");
-
-    console.log(decoded);
     const user = await User.findById(decoded.userId);
     if (!user) {
       return res.status(404).json({ message: "User not found." });
