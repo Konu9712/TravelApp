@@ -1,5 +1,16 @@
 const mongoose = require("mongoose");
 
+const reviewSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+});
+
 const resturantSechma = new mongoose.Schema({
   name: {
     type: String,
@@ -31,6 +42,7 @@ const resturantSechma = new mongoose.Schema({
   rating: {
     type: Number,
   },
+  reviews: [reviewSchema],
 });
 
 module.exports = mongoose.model("Resturant", resturantSechma);
