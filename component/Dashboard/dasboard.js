@@ -196,4 +196,56 @@ router.post("/restaurants", async (req, res) => {
   }
 });
 
+//Fetch Detail fo activity and resturant
+router.post("/:name", async (req, res) => {
+  try {
+    const name = req.params.name;
+
+    const activity = await activitySechma.findOne(
+      { name },
+      { name: 1, img: 1, lat: 1, long: 1, desc: 1, reviews: 1 }
+    );
+    const restaurant = await resturantSechma.findOne(
+      { name },
+      { name: 1, img: 1, lat: 1, long: 1, desc: 1, reviews: 1 }
+    );
+
+    const result = {};
+
+    if (activity) {
+      // Rename 'img' to 'imgs' and 'review' to 'reviews' in the response
+      result.activity = {
+        ...activity._doc,
+        imgs: activity.img,
+        review: activity.reviews,
+      };
+      delete result.activity.img;
+      delete result.activity.review;
+    }
+    if (restaurant) {
+      // Rename 'img' to 'imgs' and 'review' to 'reviews' in the response
+      result.restaurant = {
+        ...restaurant._doc,
+        imgs: restaurant.img,
+        review: restaurant.reviews,
+      };
+      delete result.restaurant.img;
+      delete result.restaurant.review;
+    }
+
+    if (Object.keys(result).length > 0) {
+      res.status(200).json(result);
+    } else {
+      res
+        .status(404)
+        .json({ message: "No matching activity or restaurant found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Error in fetching activity or restaurant" });
+  }
+});
+
 module.exports = router;
