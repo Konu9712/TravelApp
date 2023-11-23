@@ -23,7 +23,7 @@ router.post("/signup", async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
     }
-    var token = jwt.sign({ foo: "bar" }, "travelapp", { expiresIn: "1h" });
+    var token = jwt.sign({ foo: "bar" }, "travelapp");
     password = await bcrypt.hash(password, 10);
     // Create a new user
     const avatar = avatarString[Math.floor(Math.random() * 4)];
@@ -57,9 +57,7 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    const token = jwt.sign({ userId: user._id }, "travelapp", {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign({ userId: user._id }, "travelapp");
     const avatarString = user.avatar;
     user.token = token;
     user.save();
