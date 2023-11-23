@@ -210,30 +210,26 @@ router.post("/:name", async (req, res) => {
       { name: 1, img: 1, lat: 1, long: 1, desc: 1, reviews: 1 }
     );
 
-    const result = {};
-
-    if (activity) {
-      // Rename 'img' to 'imgs' and 'review' to 'reviews' in the response
-      result.activity = {
-        ...activity._doc,
-        imgs: activity.img,
-        review: activity.reviews,
+    if (activity || restaurant) {
+      const result = {
+        ...(activity && {
+          name: activity.name,
+          img: activity.img,
+          lat: activity.lat,
+          long: activity.long,
+          desc: activity.desc,
+          reviews: activity.reviews,
+        }),
+        ...(restaurant && {
+          name: restaurant.name,
+          img: restaurant.img,
+          lat: restaurant.lat,
+          long: restaurant.long,
+          desc: restaurant.desc,
+          reviews: restaurant.reviews,
+        }),
       };
-      delete result.activity.img;
-      delete result.activity.review;
-    }
-    if (restaurant) {
-      // Rename 'img' to 'imgs' and 'review' to 'reviews' in the response
-      result.restaurant = {
-        ...restaurant._doc,
-        imgs: restaurant.img,
-        review: restaurant.reviews,
-      };
-      delete result.restaurant.img;
-      delete result.restaurant.review;
-    }
 
-    if (Object.keys(result).length > 0) {
       res.status(200).json(result);
     } else {
       res
