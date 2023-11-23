@@ -45,6 +45,8 @@ router.post("/signup", async (req, res) => {
 });
 
 // Login route
+const jwtSecret = process.env.JWT_SECRET || "defaultSecret"; // Use environment variable for the secret
+
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -52,16 +54,19 @@ router.post("/login", async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    const token = jwt.sign({ userId: user._id }, "travelapp");
-    const avatarString = user.avatar;
-    user.token = token;
-    user.save();
-    res.status(200).json({ message: "Login successful", token, avatarString });
+    const token = jwt.sign({ userId: user._id }, "travelapp", {
+      expiresIn: "1h",
+    });
+
+    res
+      .status(200)
+      .json({ message: "Login successful", token, avatarString: user.avatar });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error during login" });
