@@ -123,7 +123,8 @@ This repository contains the backend code for TravelConnect, a social travel com
 
 
 ##Screenshot
-![TravelConnect1](https://github.com/Konu9712/TravelApp/assets/51238256/fa8b549e-fe1d-4a4f-9ff5-fd99a926b0f6){ width=400 }  ![TravelConnect2](https://github.com/Konu9712/TravelApp/assets/51238256/55e35f7d-1be1-4285-a5ad-1ef41cc59858){ width=400 }   ![TravelConnect3](https://github.com/Konu9712/TravelApp/assets/51238256/267ed380-36ba-487f-89bf-7b75f787c1c9){ width=400 }   ![TravelConnect4](https://github.com/Konu9712/TravelApp/assets/51238256/5678e110-2374-42f4-a6ce-c7b46feb25cc){ width=400 }
+![TravelConnect1](https://github.com/Konu9712/TravelApp/assets/51238256/fa8b549e-fe1d-4a4f-9ff5-fd99a926b0f6)   ![TravelConnect2](https://github.com/Konu9712/TravelApp/assets/51238256/55e35f7d-1be1-4285-a5ad-1ef41cc59858)    ![TravelConnect3](https://github.com/Konu9712/TravelApp/assets/51238256/267ed380-36ba-487f-89bf-7b75f787c1c9)    ![TravelConnect4](https://github.com/Konu9712/TravelApp/assets/51238256/761ad636-33d7-441e-990e-09b012d15964)
+
 
 
 
